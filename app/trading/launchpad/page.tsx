@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { LaunchpadProjectCard } from '@/components/trading/launchpad-project-card'
 import { LaunchpadProject } from '@/lib/types/launchpad'
 
 export default function LaunchpadPage() {
+  const router = useRouter()
   const [projects, setProjects] = useState<LaunchpadProject[]>([])
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'active' | 'completed'>('all')
   const [loading, setLoading] = useState(true)
@@ -36,7 +38,7 @@ export default function LaunchpadPage() {
     : projects.filter(p => p.status === filter)
 
   const handleContribute = (projectId: string) => {
-    console.log('Contribute to project:', projectId)
+    router.push(`/trading/launchpad/${projectId}`)
   }
 
   return (
